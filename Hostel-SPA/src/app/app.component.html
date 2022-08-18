@@ -1,2 +1,7 @@
-<app-navbar></app-navbar>
+<ul>
+  <li *ngFor="let hostel of hostels">
+    {{ hostel.name }}
+  </li>
+</ul>
+
 <router-outlet></router-outlet>
