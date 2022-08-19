@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { HostelService } from './services/hostel.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +9,19 @@ import { environment } from 'src/environments/environment';
 export class AppComponent implements OnInit {
   title: string = 'Hostel-SPA';
   hostels: any = [];
-  baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private hostelService: HostelService) { }
   ngOnInit(): void {
-    console.log('I am here');
-
-    this.http.get(this.baseUrl + "Hostels")
+    this.hostelService.get()
       .subscribe(response => {
         this.hostels = response;
+      }, error => {
+        console.error(error);
+      });
+
+    this.hostelService.getById(1)
+      .subscribe(response => {
+        console.log(response)
       }, error => {
         console.error(error);
       });
